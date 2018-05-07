@@ -1,0 +1,134 @@
+.ola-swipeable {
+  position: relative;
+  /* Hide scrollbar */
+  overflow: hidden;
+}
+
+/**
+ * Scrollable component
+ */
+.ola-swipeable-flow {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  transform: translate3d(0,0,0);
+  position: relative;
+  padding-bottom: 8px; /* Push the scrollbar */
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  margin-bottom: -20px;  
+}
+
+/**
+ * Hide scrollbar on webkit
+ */
+.ola-swipeable-flow::-webkit-scrollbar {
+  display: none;
+}
+
+  /**
+   * Inline flex
+   */
+  .ola-swipeable-row {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    padding-bottom: 20px;
+  }
+
+  /**
+   * Individual carousel item
+   */
+  .ola-swipeable-item {
+    flex: 1 1 auto;
+    display: flex;
+    padding: 8px 16px 8px 0;
+  }
+
+  /**
+   * Inner wrapper
+   */
+  .ola-swipeable-item-inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: center;
+  }
+
+/**
+ * Hide next prev in mobile
+ */
+.ola-swipeable-prev,
+.ola-swipeable-next {
+  background: white;
+  color: black;  
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -20px;
+  bottom: 0;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;  
+  z-index: 1;
+  line-height: 1;
+}
+  /**
+   * Show the buttons in desktop
+   */
+  @media only screen and (min-width: 960px) {
+    .ola-swipeable-prev,
+    .ola-swipeable-next {
+      display: block;
+    }
+  }
+
+  .ola-swipeable-prev[disabled],
+  .ola-swipeable-next[disabled] {
+    display: none;
+  }
+
+  /**
+   * Previos
+   */
+  .ola-swipeable-prev {
+    left: 0;
+    right: auto;
+  }
+
+/**
+ * Show button
+ */
+.ola-swipeable-button {
+  text-align: center;
+  width: 60px;  
+}
+
+.ola-swipeable-button-text {
+  display: block;
+  padding-top: 8px;
+  font-size: 12px;
+}
+
+.ola-swipeable-show {
+  display: flex;
+  align-items: center;
+}
+
+
+/**
+ * Answer list
+ */
+.ola-answer-list-swipe .ola-answer-list-items{
+  display: block;
+}
+
+
+.olachat-bot-desktop .ola-swipeable-prev,
+.olachat-bot-desktop .ola-swipeable-next {
+  display: block;
+}
