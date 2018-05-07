@@ -8,9 +8,9 @@ Browser native swipe friendly carousel.
 * Keyboard support
 * Accessible
 * Server side friendly
+* Requires `requestAnimationFrame` and `Promise` polyfill
 
-** Requires `requestAnimationFrame` and `Promise` polyfill
-
+Docs & Demo: https://rmdort.github.io/react-swipe-carousel/
 
 ## Installation
 
