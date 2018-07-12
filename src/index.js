@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { smoothScroll, debounce, isFocusable } from './utils'
+import { smoothScroll } from './utils'
 import cx from 'classnames'
 
 const LEFT_KEY = 37
@@ -17,7 +17,8 @@ export default class Carousel extends React.Component {
       canScrollLeft: false,
       canScrollRight: true
     }
-    this._updateScrollState = debounce(this.updateScrollState, 100)
+    this._updateScrollState = () =>
+      window.requestAnimationFrame(this.updateScrollState)
   }
   registerRef = el => {
     this.scroller = el
@@ -53,9 +54,10 @@ export default class Carousel extends React.Component {
   }
   static defaultProps = {
     itemWidth: 'auto',
+    direction: 'horizontal',
     showNavigation: true,
     startIndex: null,
-    autoFocus: false,
+    autoFocus: false
   }
   static propTypes = {
     /**
@@ -73,25 +75,37 @@ export default class Carousel extends React.Component {
     /**
      * Auto focus the carousel to enable keyboard navigation
      */
-    autoFocus: PropTypes.bool
+    autoFocus: PropTypes.bool,
+    /**
+     * Direction
+     */
+    direction: PropTypes.oneOf(['horizontal', 'vertical'])
   }
   scrollTo = duration => {
     const { active } = this.state
     if (!this.scrollRow.children[active]) return
     const width = this.scrollRow.children[active].clientWidth
-    smoothScroll(this.scroller, active * width, duration).then(
-      this.updateScrollState
-    )
+    smoothScroll(
+      this.scroller,
+      active * width,
+      duration,
+      this.props.direction
+    ).then(this.updateScrollState)
   }
   updateScrollState = () => {
     if (!this.props.showNavigation || !this.scroller) return
-    // console.log(this.scroller.scrollLeft, this.scroller.clientWidth, this.scroller.scrollWidth)
+    const scrollDir =
+      this.props.direction === 'horizontal' ? 'scrollLeft' : 'scrollTop'
+    const scrollSize =
+      this.props.direction === 'horizontal' ? 'scrollWidth' : 'scrollHeight'
+    const clientWidth =
+      this.props.direction === 'horizontal' ? 'clientWidth' : 'clientHeight'
     /* Check if it can scroll left */
     this.setState({
-      canScrollLeft: this.scroller.scrollLeft > 0,
+      canScrollLeft: this.scroller[scrollDir] > 0,
       canScrollRight:
-        this.scroller.scrollLeft + this.scroller.clientWidth <
-        this.scroller.scrollWidth
+        this.scroller[scrollDir] + this.scroller[clientWidth] <
+        this.scroller[scrollSize]
     })
   }
   handlePrev = () => {
@@ -127,10 +141,12 @@ export default class Carousel extends React.Component {
       children,
       itemWidth,
       showNavigation,
-      className
+      className,
+      direction,
+      containerHeight
     } = this.props
     const { canScrollLeft, canScrollRight } = this.state
-    const classes = cx('ola-swipeable', className)
+    const classes = cx('ola-swipeable', `ola-swipeable-${direction}`, className)
     return (
       <div className={classes}>
         {showNavigation ? (
@@ -147,6 +163,7 @@ export default class Carousel extends React.Component {
           className='ola-swipeable-flow'
           tabIndex='-1'
           onKeyDown={this.handleKeyDown}
+          style={{ maxHeight: containerHeight }}
           ref={this.registerRef}
         >
           <div className='ola-swipeable-row' ref={this.registerRowRef}>

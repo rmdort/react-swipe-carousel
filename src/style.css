@@ -10,13 +10,12 @@
 .ola-swipeable-flow {
   display: block;
   overflow-x: auto;
-  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   transform: translate3d(0,0,0);
   position: relative;
   padding-bottom: 8px; /* Push the scrollbar */
   -webkit-tap-highlight-color: rgba(0,0,0,0);
-  margin-bottom: -20px;  
+  margin-bottom: -20px;
 }
 
 /**
@@ -62,7 +61,7 @@
 .ola-swipeable-prev,
 .ola-swipeable-next {
   background: white;
-  color: black;  
+  color: black;
   padding: 0;
   border: none;
   cursor: pointer;
@@ -73,7 +72,7 @@
   bottom: 0;
   width: 40px;
   min-width: 40px;
-  height: 40px;  
+  height: 40px;
   z-index: 1;
   line-height: 1;
 }
@@ -105,7 +104,7 @@
  */
 .ola-swipeable-button {
   text-align: center;
-  width: 60px;  
+  width: 60px;
 }
 
 .ola-swipeable-button-text {
@@ -119,16 +118,9 @@
   align-items: center;
 }
 
-
 /**
- * Answer list
+ * Vertical carousel
  */
-.ola-answer-list-swipe .ola-answer-list-items{
-  display: block;
-}
-
-
-.olachat-bot-desktop .ola-swipeable-prev,
-.olachat-bot-desktop .ola-swipeable-next {
-  display: block;
+.ola-swipeable-vertical .ola-swipeable-row {
+  flex-direction: column;
 }

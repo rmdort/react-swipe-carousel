@@ -1,6 +1,6 @@
 {
   "name": "react-swipe-carousel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Browser native swipe friendly carousel.",
   "main": "lib/index.js",
   "scripts": {
